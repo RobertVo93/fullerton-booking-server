@@ -7,14 +7,15 @@ class Routers {
     router;
     constructor() {
         this.router = express.Router();
-        this.router.get('', (req, res) => {
-            res.json('');
-        });
         //Authentication routers
         let authen = new Authentication()
         this.router.post('/api/register', authen.register);
         this.router.post('/api/login', authen.login);
         this.router.post('/api/logout', authen.logout);
+
+        this.router.get('', authen.authorization, (req, res) => {
+            res.json('');
+        });
 
         //booking routers
         let bookings = new BookingController();
